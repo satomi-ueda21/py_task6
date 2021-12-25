@@ -8,14 +8,13 @@ import requests
 from time import sleep
 import re
 
-args = sys.argv
-shopName = args[1]
+serch_keyword = input("検索する商品名を入力してください>>>")
 
 url = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706'
 payload = {
   'applicationId':str(1033241985764370332),
   'hits':30,
-  'shopCode':shopName,
+  'keyword':serch_keyword,
   'page':1,
   'postageFlag':1,
   }

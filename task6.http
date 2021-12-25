@@ -1,2 +1,7 @@
 
-GET https://www.google.com/ HTTP/1.1
+GET https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&keyword=%E6%A5%BD%E5%A4%A9&genreId=555086&applicationId=1019079537947262807
+content-type: application/json
+
+###
+
+https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?applicationId=1033241985764370332&hits=30&shopCode=dvdoutlet&page=1&postageFlag=1
