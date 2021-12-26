@@ -35,13 +35,16 @@ def search_price(keyword:str):
       counter = counter + 1
       item = i['Product']
       print('【No.】' + str(counter))
-      print('【商品名】' + '￥' + str(item['productName']))
+      print('【商品名】' + str(item['productName']))
       print('【最安値】' + '￥' + str(item['minPrice']))
       print('【最高値】' + '￥' + str(item['maxPrice'])  + "\n")
 
   except requests.exceptions.RequestException as e:
-    print("エラー発生")
+    print("リクエストエラー発生")
     print(e)
+  except Exception as error:
+    print("その他のリクエストエラー発生")
+    print(error)
 
 if __name__ == "__main__":
   keyword = input("最安値と最高値を検索する商品名を入力してください>>>")

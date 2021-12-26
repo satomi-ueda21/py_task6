@@ -33,14 +33,16 @@ def search_keyword(keyword:str):
     for i in resp['Items']:
       counter = counter + 1
       item = i['Item']
-
       print('【No.】' + str(counter))
       print('【商品名】' + '￥' + str(item['itemName']))
       print('【商品価格】' + '￥' + str(item['itemPrice']) + "\n")
-  except requests.exceptions.RequestException as e:
-    print("エラー発生")
-    print(e)
 
+  except requests.exceptions.RequestException as e:
+    print("リクエストエラー発生")
+    print(e)
+  except Exception as error:
+    print("その他のリクエストエラー発生")
+    print(error)
 
 
 
