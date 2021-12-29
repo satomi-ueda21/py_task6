@@ -1,17 +1,32 @@
 import pprint
 from typing import Counter
 import requests
-from time import sleep
+import gspread
+from gspread import worksheet
+from oauth2client.service_account import ServiceAccountCredentials
+import os
+import pandas as pd
+from spread_sheet_manager import SpreadsheetManager
+from dotenv import load_dotenv
+load_dotenv() #環境変数のロード
 
-def search_keyword(keyword:str):
+SHEET_NAME = "テスト"
+SPREADSHEET_ID = os.environ["SPREADSHEET_ID"]
+
+def search_keyword():
   url = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706'
   payload = {
     'applicationId':str(1033241985764370332),
-    'hits':30,
+    'hits':10,
     'keyword':keyword,
     'page':1,
     'postageFlag':1,
     }
+
+  ss = SpreadsheetManager()
+  ss.connect_by_sheetname(SPREADSHEET_ID, "keyword")
+  key_df = ss.fetch_all_data_to_df()
+  word_list = key_df["keyword"].values.tolist()
 
   try:
     r = requests.get(url, params=payload)
@@ -24,7 +39,7 @@ def search_keyword(keyword:str):
     print (f"【num of item】{total}")
     print (f"【num of page】{Max}")
     print ("===================================")
-    pprint.pprint(resp)
+    # pprint.pprint(resp)
 
     counter = 0
     for i in resp['Items']:
@@ -45,6 +60,7 @@ def search_keyword(keyword:str):
 
 
 if __name__ == "__main__":
-  keyword = input("検索するキーワードを入力してください>>>")
-  search_keyword(keyword)
+  #スプレッドシートから検索キーワードを読み込む
+  # keyword = input("検索するキーワードを入力してください>>>")
+  search_keyword()
 
