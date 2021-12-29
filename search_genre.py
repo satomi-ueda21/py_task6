@@ -1,8 +1,3 @@
-import csv
-import sys
-import codecs
-import pprint
-import os
 from typing import Counter
 import requests
 from time import sleep
@@ -39,13 +34,17 @@ def search_genre(keynumber:int):
       print('【商品名】' + '￥' + str(item['itemName']))
       print('【価格】' + '￥' + str(item['itemPrice']) + "\n")
       #データフレームに行を追加しようとしてエラー
-      df.append(item['rank'], item['itemName'], item['itemPrice'])
+      df = df.append({"順位" : item['rank'],
+                      "商品名" : item['itemName'],
+                      "価格" : item['itemPrice']},
+                      ignore_index=True)
 
     #リストをデータフレームに入れようとして列数が合わないとエラー
     # print(source)
     # df = pd.DataFrame(source, columns=["順位", "商品名", "価格"])
     # # pprint.pprint(df)
     df.to_csv(csv_path, encoding="utf_8-sig")
+    return resp
 
   except requests.exceptions.RequestException as e:
     print("リクエストエラー発生")

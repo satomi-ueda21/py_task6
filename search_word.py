@@ -1,8 +1,4 @@
-import csv
-import sys
-import codecs
-import math
-import random
+import pprint
 from typing import Counter
 import requests
 from time import sleep
@@ -28,6 +24,7 @@ def search_keyword(keyword:str):
     print (f"【num of item】{total}")
     print (f"【num of page】{Max}")
     print ("===================================")
+    pprint.pprint(resp)
 
     counter = 0
     for i in resp['Items']:
@@ -36,6 +33,7 @@ def search_keyword(keyword:str):
       print('【No.】' + str(counter))
       print('【商品名】' + '￥' + str(item['itemName']))
       print('【商品価格】' + '￥' + str(item['itemPrice']) + "\n")
+    return resp
 
   except requests.exceptions.RequestException as e:
     print("リクエストエラー発生")

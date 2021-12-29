@@ -1,8 +1,5 @@
-import csv
-import sys
-import codecs
-import math
-import random
+
+import pprint
 from typing import Counter
 import requests
 from time import sleep
@@ -29,6 +26,7 @@ def search_price(keyword:str):
     print (f"【num of item】{total}")
     print (f"【num of page】{Max}")
     print ("===================================")
+    pprint.pprint(resp)
 
     counter = 0
     for i in resp['Products']:
@@ -38,6 +36,7 @@ def search_price(keyword:str):
       print('【商品名】' + str(item['productName']))
       print('【最安値】' + '￥' + str(item['minPrice']))
       print('【最高値】' + '￥' + str(item['maxPrice'])  + "\n")
+    return resp
 
   except requests.exceptions.RequestException as e:
     print("リクエストエラー発生")
