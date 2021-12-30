@@ -20,10 +20,6 @@ def search_genre(keynumber:int):
     print (f"【ランキングタイトル】{resp['title']}")
     print ("===================================")
     csv_path = (f"./{resp['title']}.csv")
-    #リストにするとCSVでカラムごとにまとめられなかった
-    # if os.path.exists(csv_path) :
-    #   source = list(pd.read_csv(csv_path)["順位", "商品名", "価格"])
-    # else:
     df = pd.DataFrame(columns=["順位", "商品名", "価格"])
 
     counter = 0
@@ -33,16 +29,11 @@ def search_genre(keynumber:int):
       print('【順位】' + str(item['rank']))
       print('【商品名】' + '￥' + str(item['itemName']))
       print('【価格】' + '￥' + str(item['itemPrice']) + "\n")
-      #データフレームに行を追加しようとしてエラー
       df = df.append({"順位" : item['rank'],
                       "商品名" : item['itemName'],
                       "価格" : item['itemPrice']},
                       ignore_index=True)
 
-    #リストをデータフレームに入れようとして列数が合わないとエラー
-    # print(source)
-    # df = pd.DataFrame(source, columns=["順位", "商品名", "価格"])
-    # # pprint.pprint(df)
     df.to_csv(csv_path, encoding="utf_8-sig")
     return resp
 
